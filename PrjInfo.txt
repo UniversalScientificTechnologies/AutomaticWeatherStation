@@ -1,0 +1,13 @@
+[InfoShortDescription.en]
+Automatic weather station
+
+[InfoShortDescription.cs]
+Automatická meteorologická stanice
+
+[InfoLongDescription.cs]
+Meteorologická stanice s vnitřní jednotlou obsahující ODROID s Linuxem. Koncept je velmi variabilní a je možné využít hotových programů s možností úprav, nebo je možné napsání vlastního programu. Aktuální MLAB senzory umožňují měřit teplotu, vlhkost, směr a rychlost větru a intenzitu osvětlení. V zásadě není omezen počet, nebo je možné přidat nové vlastní. 
+
+[InfoLongDescription.en]
+Weather station with indoor Dials containing ODROID with Linux. The concept is very flexible and can use ready-made programs with modifications, or you can write your own program. MLAB  sensors allow you to measure temperature, humidity, wind speed and direction and intensity of light. In principle there is no limit to the number, or you can add new own typ.
+
+[End]
