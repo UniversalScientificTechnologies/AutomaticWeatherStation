@@ -1,0 +1,88 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import math
+import time
+import rospy
+import std_msgs
+import json
+from std_msgs.msg import String
+from arom.srv import *
+from arom.msg import *
+import numpy as np
+from __init__ import AromNode
+
+
+
+class awsAdvance(AromNode):
+    node_name = "awsAdvance"
+    node_type = "awsAdvance"
+    node_pymlab = True
+
+    def __init__(self):
+        self.dataValues  =  {}
+        self.dataPublishers={}
+
+        #rospy.Subscriber("/mount/laser", String, callback_btn)
+        AromNode.__init__(self)
+        self.set_feature('aws_setting', {'cfg': "/home/odroid/robozor/station/aws_presets/ZVPP.json"})
+        self.pymlab = rospy.ServiceProxy('pymlab_drive', PymlabDrive)
+
+        with open(rospy.get_param('/arom/node%s/feature/aws_setting/cfg'%(rospy.get_name()))) as data_file:   #TODO: retezec k paramserveru podle nazvu nodu atd... 
+            self.cfg_json = json.load(data_file)
+        
+        print json.dumps(self.cfg_json, indent=4, sort_keys=False)
+        self.awsPublisher = rospy.Publisher('/arom/node/aws', std_msgs.msg.String, queue_size=10)
+        for device in self.cfg_json['sensors'] + self.cfg_json['calculation']:
+            self.dataPublishers[device['name']] = rospy.Publisher('/arom/node/aws/'+device['name'], arom.msg.msg_aws, queue_size=10)
+
+
+        rate = rospy.Rate(0.25)
+        while not rospy.is_shutdown():
+            try:
+                print ">>>", self.dataValues
+                for i, device in enumerate(self.cfg_json['sensors']):
+                    try:
+                        value = eval(self.pymlab(device=device['device'], method=device['method']).value)
+                        self.dataPublishers[device['name']].publish(value)
+                        self.dataValues[device['name']] = value
+                        self.cfg_json['sensors'][i]['value'] = value
+                        #print self.dataValues[device['name']], device['device'], device['method']
+                    except Exception, e:
+                        print e
+
+                for i, device in enumerate(self.cfg_json['calculation']):
+                    try:
+                        #value = self.calc(values=device['values'])
+                        value = getattr(self, device['device'])(values=device['values'], param=device)
+                        self.dataPublishers[device['name']].publish(value)
+                        self.dataValues[device['name']] = value
+                        self.cfg_json['calculation'][i]['value'] = value
+                        #print self.dataValues[device['name']], device['device'], device['method']
+                    except Exception, e:
+                        print e
+
+                self.awsPublisher.publish(json.dumps(self.cfg_json))
+
+            except Exception, e:
+                print e
+            rate.sleep()
+
+    def calc(self, values):
+        pass
+
+    def dewpoint(self, values, param):
+        out = self.dataValues[values[0]]-(100-self.dataValues[values[1]])/5
+        return out
+
+    def pressure_to_sea_level(self, values, param):
+        h = 0.0065 * param['height']
+        out = self.dataValues[values[0]]*(1-(h)/(self.dataValues[values[1]]-h+273.15))**-5.257
+        return out
+
+
+
+
+if __name__ == '__main__':
+    m = awsAdvance()
+
