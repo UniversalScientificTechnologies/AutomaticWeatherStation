@@ -370,7 +370,7 @@ version = 3.6.2
     [[archive_sqlite]]
         database_type = SQLite
         database_name = weewx.sdb
-    
+
     # MySQL
     [[archive_mysql]]
         database_type = MySQL
@@ -381,7 +381,7 @@ version = 3.6.2
 #   This section defines defaults for the different types of databases.
 
 [DatabaseTypes]
-    
+
     # Defaults for SQLite databases
     [[SQLite]]
         driver = weedb.sqlite
