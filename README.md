@@ -5,7 +5,7 @@ Professional high quality 3D printed automatic weather station.  The special fea
 * Modular construction allowing experiment specific modification
 * Printed design allows easy and fast componet replacement even in distant locations with difficult maintanance
 
-<img src="https://raw.githubusercontent.com/UniversalScientificTechnologies/AutomaticWeatherStation/master/AWS03A_Small.jpg" width="800" />
+![Automatic Weather station mounted on building roof](AWS03A_Small.jpg "Automatic Weather station mounted on building roof")
 
 Related sensors: 
  * [Venturi based wind sensor](https://github.com/mlab-modules/WINDGAUGE03)
