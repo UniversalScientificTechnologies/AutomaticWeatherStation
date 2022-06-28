@@ -1,6 +1,6 @@
 ---
 title: "Automatic weather station"
-excerpt: "Professional high quality 3D printed automatic weather station"
+excerpt: "A professional high-quality 3D-printed automatic weather station"
 header:
   image: products/AutomaticWeatherStation/AWS03A_Small.jpg
   teaser: products/AutomaticWeatherStation/AWS03A_Small.jpg
@@ -10,11 +10,11 @@ header:
 ---
 
 # AutomaticWeatherStation
-Professional high quality 3D printed automatic weather station.
+A professional high-quality 3D-printed automatic weather station.
 
 The special features are: 
 * Easy station deployment due to self-calibrating wind gauge
-* Modular construction allowing experiment specific modification
+* Modular construction allowing experiment-specific modifications
 * Printed design allows easy and fast component replacement after externaly caused damage even in distant locations with difficult maintanance
 
 ![Automatic Weather station mounted on building roof](AWS03A_Small.jpg "Automatic Weather station mounted on building roof")
